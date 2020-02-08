@@ -104,6 +104,20 @@
 <div class="page"><div class="slide">
 <code>
 <span class="macro">@def(<span class="name">process block</span>)</span><br/>
+<span class="in1"></span><span class="type">int</span> <span class="var">cnt</span> { <span class="num">0</span> };<br/>
+<span class="in1"></span><span class="keyword">for</span> (<span class="type">const</span> <span class="type">auto</span> &amp;<span class="var">l</span> : <span class="var">block</span>) {<br/>
+<span class="in2"></span><span class="keyword">if</span> (<span class="var">l</span>[<span class="num">0</span>] == <span class="str">'#'</span>) { ++<span class="var">cnt</span>; }<br/>
+<span class="in1"></span>}<br/>
+<span class="in1"></span><span class="keyword">if</span> (<span class="var">cnt</span> &gt; <span class="num">1</span>) {<br/>
+<span class="in2"></span><span class="macro">@put(<span class="name">process headers</span>)</span>;<br/>
+<span class="in2"></span><span class="keyword">continue</span>;<br/>
+<span class="in1"></span>}<br/>
+<span class="macro">@end(<span class="name">process block</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide">
+<code>
+<span class="macro">@add(<span class="name">process block</span>)</span><br/>
 <span class="in1"></span><span class="keyword">for</span> (<span class="type">const</span> <span class="type">auto</span> &amp;<span class="var">l</span> : <span class="var">block</span>) {<br/>
 <span class="in2"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="var">l</span> &lt;&lt; <span class="str">'\n'</span>;<br/>
 <span class="in1"></span>}<br/>
@@ -135,6 +149,40 @@
 <span class="in2"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="str">'\n'</span>;<br/>
 <span class="in1"></span>}<br/>
 <span class="macro">@end(<span class="name">handle include</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide">
+<code>
+<span class="macro">@def(<span class="name">process headers</span>)</span><br/>
+<span class="in1"></span><span class="keyword">for</span> (<span class="type">int</span> <span class="var">i</span> = <span class="num">1</span>; <span class="var">i</span> &lt;= <span class="var">cnt</span>; ++<span class="var">i</span>) {<br/>
+<span class="in2"></span><span class="type">int</span> <span class="var">j</span> = <span class="num">0</span>;<br/>
+<span class="in2"></span><span class="keyword">for</span> (<span class="type">const</span> <span class="type">auto</span> &amp;<span class="var">l</span> : <span class="var">block</span>) {<br/>
+<span class="in3"></span><span class="keyword">if</span> (<span class="var">l</span>[<span class="num">0</span>] == <span class="str">'#'</span>) {<br/>
+<span class="in4"></span>++<span class="var">j</span>;<br/>
+<span class="in4"></span><span class="keyword">if</span> (<span class="var">j</span> &lt;= <span class="var">i</span>) {<br/>
+<span class="in5"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="var">l</span> &lt;&lt; <span class="str">'\n'</span>;<br/>
+<span class="in4"></span>} <span class="keyword">else</span> {<br/>
+<span class="in5"></span><span class="macro">@put(<span class="name">print hidden header</span>)</span>;<br/>
+<span class="in4"></span>}<br/>
+<span class="in3"></span>} <span class="keyword">else</span> {<br/>
+<span class="in4"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="var">l</span> &lt;&lt; <span class="str">'\n'</span>;<br/>
+<span class="in3"></span>}<br/>
+<span class="in2"></span>}<br/>
+<span class="in2"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="str">'\n'</span>;<br/>
+<span class="in1"></span>}<br/>
+<span class="macro">@end(<span class="name">process headers</span>)</span><br/>
+</code></div>
+</div>
+<div class="page"><div class="slide">
+<code>
+<span class="macro">@def(<span class="name">print hidden header</span>)</span><br/>
+<span class="in1"></span><span class="type">int</span> <span class="var">i</span> = <span class="num">0</span>;<br/>
+<span class="in1"></span><span class="keyword">while</span> (<span class="var">l</span>[<span class="var">i</span>] == <span class="str">'#'</span>) {<br/>
+<span class="in2"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="str">'#'</span>;<br/>
+<span class="in2"></span>++<span class="var">i</span>;<br/>
+<span class="in1"></span>}<br/>
+<span class="in1"></span><span class="type">std</span>::<span class="var">cout</span> &lt;&lt; <span class="str">" -"</span> &lt;&lt; <span class="var">l</span>.<span class="fn">substr</span>(<span class="var">i</span> + <span class="num">1</span>) &lt;&lt; <span class="str">'\n'</span>;<br/>
+<span class="macro">@end(<span class="name">print hidden header</span>)</span><br/>
 </code></div>
 </div>
 </body>

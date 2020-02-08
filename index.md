@@ -83,6 +83,19 @@
 
 ```
 @def(process block)
+	int cnt { 0 };
+	for (const auto &l : block) {
+		if (l[0] == '#') { ++cnt; }
+	}
+	if (cnt > 1) {
+		@put(process headers);
+		continue;
+	}
+@end(process block)
+```
+
+```
+@add(process block)
 	for (const auto &l : block) {
 		std::cout << l << '\n';
 	}
@@ -112,5 +125,37 @@
 		std::cout << '\n';
 	}
 @end(handle include)
+```
+
+```
+@def(process headers)
+	for (int i = 1; i <= cnt; ++i) {
+		int j = 0;
+		for (const auto &l : block) {
+			if (l[0] == '#') {
+				++j;
+				if (j <= i) {
+					std::cout << l << '\n';
+				} else {
+					@put(print hidden header);
+				}
+			} else {
+				std::cout << l << '\n';
+			}
+		}
+		std::cout << '\n';
+	}
+@end(process headers)
+```
+
+```
+@def(print hidden header)
+	int i = 0;
+	while (l[i] == '#') {
+		std::cout << '#';
+		++i;
+	}
+	std::cout << " -" << l.substr(i + 1) << '\n';
+@end(print hidden header)
 ```
 

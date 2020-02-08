@@ -58,17 +58,60 @@
 		
 #line 85 "index.md"
 
+	int cnt { 0 };
+	for (const auto &l : block) {
+		if (l[0] == '#') { ++cnt; }
+	}
+	if (cnt > 1) {
+		
+#line 131 "index.md"
+
+	for (int i = 1; i <= cnt; ++i) {
+		int j = 0;
+		for (const auto &l : block) {
+			if (l[0] == '#') {
+				++j;
+				if (j <= i) {
+					std::cout << l << '\n';
+				} else {
+					
+#line 152 "index.md"
+
+	int i = 0;
+	while (l[i] == '#') {
+		std::cout << '#';
+		++i;
+	}
+	std::cout << " -" << l.substr(i + 1) << '\n';
+
+#line 140 "index.md"
+;
+				}
+			} else {
+				std::cout << l << '\n';
+			}
+		}
+		std::cout << '\n';
+	}
+
+#line 91 "index.md"
+;
+		continue;
+	}
+
+#line 98 "index.md"
+
 	for (const auto &l : block) {
 		std::cout << l << '\n';
 	}
 	std::cout << '\n';
 
-#line 94 "index.md"
+#line 107 "index.md"
 
 	for (const auto &l : block) {
 		if (l.size() > 6 && memcmp("@" "inc(", l.c_str(), 5) == 0) {
 			
-#line 104 "index.md"
+#line 117 "index.md"
 
 	std::string path { l.substr(5, l.size() - 6) };
 	if (written.find(path) == written.end()) {
@@ -80,7 +123,7 @@
 		std::cout << '\n';
 	}
 
-#line 97 "index.md"
+#line 110 "index.md"
 ;
 		}
 	}
